@@ -1,21 +1,38 @@
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Peonsson on 24/02/16.
  */
+
+/**
+ * Takes an array of ints and sorts it with Merge sort.
+ */
 public class MergeSort {
-    public static <E> ArrayList<E> sort(ArrayList<E> myList) {
 
-        if(myList.size() > 1) {
-            ArrayList<E> left = (ArrayList) myList.subList(0, myList.size()/2);
-            ArrayList<E> right = (ArrayList)  myList.subList(myList.size()/2 + 1, myList.size());
+    private static int[] arr;
 
-            sort(left);
-            sort(right);
+    public static void sort(int[] myList) {
 
-            if(left.get(0) > right.get(0))
+        arr = myList;
+        doSort(0, arr.length-1);
+    }
 
+    private static void doSort(int low, int high) {
+
+        if (low < high) {
+
+            int mid = low + (high - low) / 2;
+
+            doSort(low, mid);
+            doSort(mid + 1, high);
+            merge(low, mid, high);
+        }
+    }
+
+    private static void merge(int low, int mid, int high) {
+
+        int[] tempArr = new int[arr.length];
+
+        for (int i = low; i <= high; i++) {
+            tempArr[i] = arr[i];
         }
     }
 }
