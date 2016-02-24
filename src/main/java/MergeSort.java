@@ -12,7 +12,7 @@ public class MergeSort {
     public static void sort(int[] myList) {
 
         arr = myList;
-        doSort(0, arr.length-1);
+        doSort(0, arr.length - 1);
     }
 
     private static void doSort(int low, int high) {
