@@ -15,8 +15,8 @@ public class MergeSortParallel extends RecursiveTask<Void> {
 
     @Override
     protected Void compute() {
-        if (list.length == 0 || list.length == 1) { // small enough task, do it
-            return null;
+        if (list.length < 14) { // small enough task, do it
+            sort(list);
         }
         else { // task too large, make subtasks
             float[] b = Arrays.copyOfRange(list, 0, list.length / 2);
@@ -26,20 +26,8 @@ public class MergeSortParallel extends RecursiveTask<Void> {
             MergeSortParallel rightTask = new MergeSortParallel(c);
 
             invokeAll(leftTask, rightTask);
-
             merge(b, c, list);
         }
-
-
-//        if (list.length > 1) {
-//            float[] b = java.util.Arrays.copyOfRange(list, 0, list.length / 2);
-//            float[] c = java.util.Arrays.copyOfRange(list, list.length / 2, list.length);
-//
-//            sort(b);
-//            sort(c);
-//
-//            merge(b, c, list);
-//        }
 
         return null;
     }
