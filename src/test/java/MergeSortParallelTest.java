@@ -20,6 +20,17 @@ public class MergeSortParallelTest {
     }
 
     @Test
+    public void testMergeSortParallel() throws Exception {
+
+        Random r = new Random();
+        float[] floats = new float[100000];
+
+        for (int i = 0; i < floats.length; i++) {
+            floats[i] = r.nextFloat();
+        }
+    }
+
+    @Test
     public void testMergeSortSort() throws Exception {
 
         float[] inputArr = generateArray();

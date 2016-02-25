@@ -2,27 +2,29 @@ import java.util.Arrays;
 import java.util.concurrent.RecursiveTask;
 
 /**
- * Takes an array of ints and sorts it with Merge sort.
+ * Created by Peonsson on 25/02/16.
  */
-public class MergeSortParallel extends RecursiveTask<Void> {
+public class MergeSortParallelAlpha  extends RecursiveTask<Void> {
 
+
+    private final int testLength;
     private float[] list;
 
-    public MergeSortParallel(float[] list) {
+    public MergeSortParallelAlpha(float[] list, int testLength) {
+        this.testLength = testLength;
         this.list = list;
     }
 
     @Override
     protected Void compute() {
-        if (list.length < 13) { // small enough task, do it
+        if (list.length < testLength) { // small enough task, do it
             sort(list);
         } else { // task too large, make subtasks
 
             float[] left = Arrays.copyOfRange(list, 0, list.length / 2);
             float[] right = Arrays.copyOfRange(list, (list.length / 2), list.length);
 
-            invokeAll(new MergeSortParallel(left));
-            invokeAll(new MergeSortParallel(right));
+            invokeAll(new MergeSortParallel(left), new MergeSortParallel(right));
 
             merge(left, right, list);
 
@@ -69,4 +71,5 @@ public class MergeSortParallel extends RecursiveTask<Void> {
             indexB++;
         }
     }
+
 }
