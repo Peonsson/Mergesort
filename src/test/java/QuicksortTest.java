@@ -7,11 +7,10 @@ import java.util.Random;
  */
 public class QuicksortTest {
 
-
     private float[] generateArray() {
 
         Random r = new Random();
-        float[] floats = new float[100000];
+        float[] floats = new float[10000000];
 
         for (int i = 0; i < floats.length; i++) {
             floats[i] = r.nextFloat();

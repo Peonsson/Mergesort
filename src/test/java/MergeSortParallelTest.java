@@ -11,7 +11,7 @@ public class MergeSortParallelTest {
     private float[] generateArray() {
 
         Random r = new Random();
-        float[] floats = new float[100000];
+        float[] floats = new float[10000000];
 
         for (int i = 0; i < floats.length; i++) {
             floats[i] = r.nextFloat();
@@ -33,8 +33,6 @@ public class MergeSortParallelTest {
             if (inputArr[i - 1] > inputArr[i])
                 isSorted = false;
         }
-
-        System.out.println(Arrays.toString(inputArr));
 
         assert (isSorted);
     }
