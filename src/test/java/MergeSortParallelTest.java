@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import java.util.Arrays;
+
 /**
  * Created by Peonsson on 25/02/16.
  */
@@ -11,7 +13,7 @@ public class MergeSortParallelTest {
 
         float[] inputArr = {45.5f, 23.0f, 11.2f, 89.9f, 77.3f, 98.1f, 4.4f, 28.01f, 65.2f, 43.8f};
 
-        MergeSortParallel.sort(inputArr);
+        new MergeSortParallel(inputArr).compute();
 
         boolean isSorted = true;
 
@@ -19,6 +21,8 @@ public class MergeSortParallelTest {
             if (inputArr[i - 1] > inputArr[i])
                 isSorted = false;
         }
+
+        System.out.println(Arrays.toString(inputArr));
 
         assert (isSorted);
     }
@@ -28,7 +32,7 @@ public class MergeSortParallelTest {
 
         float[] inputArr = {45.5f};
 
-        MergeSortParallel.sort(inputArr);
+        new MergeSortParallel(inputArr).compute();
 
         boolean isSorted = true;
 
@@ -36,6 +40,8 @@ public class MergeSortParallelTest {
             if (inputArr[i - 1] > inputArr[i])
                 isSorted = false;
         }
+
+        System.out.println(Arrays.toString(inputArr));
 
         assert (isSorted);
     }
@@ -45,7 +51,7 @@ public class MergeSortParallelTest {
 
         float[] inputArr = {};
 
-        MergeSortParallel.sort(inputArr);
+        new MergeSortParallel(inputArr).compute();
 
         boolean isSorted = true;
 
@@ -53,6 +59,8 @@ public class MergeSortParallelTest {
             if (inputArr[i - 1] > inputArr[i])
                 isSorted = false;
         }
+
+        System.out.println(Arrays.toString(inputArr));
 
         assert (isSorted);
     }
@@ -62,7 +70,7 @@ public class MergeSortParallelTest {
 
         float[] inputArr = {-45.5f, 23.0f, -11.2f, 89.9f, -77.3f, 98.1f, -4.4f, 28.01f, -65.2f, 43.8f};
 
-        MergeSortParallel.sort(inputArr);
+        new MergeSortParallel(inputArr).compute();
 
         boolean isSorted = true;
 
@@ -70,6 +78,8 @@ public class MergeSortParallelTest {
             if (inputArr[i - 1] > inputArr[i])
                 isSorted = false;
         }
+
+        System.out.println(Arrays.toString(inputArr));
 
         assert (isSorted);
     }
@@ -79,7 +89,7 @@ public class MergeSortParallelTest {
 
         float[] inputArr = {-45.5f, -23.0f, -11.2f, -89.9f, -77.3f, -98.1f, -4.4f, -28.01f, -65.2f, -43.8f};
 
-        MergeSortParallel.sort(inputArr);
+        new MergeSortParallel(inputArr).compute();
 
         boolean isSorted = true;
 
@@ -87,6 +97,8 @@ public class MergeSortParallelTest {
             if (inputArr[i - 1] > inputArr[i])
                 isSorted = false;
         }
+
+        System.out.println(Arrays.toString(inputArr));
 
         assert (isSorted);
     }
