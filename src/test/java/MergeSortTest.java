@@ -24,7 +24,13 @@ public class MergeSortTest {
 
         float[] inputArr = generateArray();
 
+        long test = System.currentTimeMillis();
+
         MergeSort.sort(inputArr);
+
+        long data = System.currentTimeMillis() - test;
+
+        System.out.println("MergeSortTest: " + data);
 
         boolean isSorted = true;
 
@@ -34,6 +40,7 @@ public class MergeSortTest {
         }
 
         assert (isSorted);
+
     }
 
     @Test

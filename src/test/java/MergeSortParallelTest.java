@@ -25,7 +25,13 @@ public class MergeSortParallelTest {
 
         float[] inputArr = generateArray();
 
+        long test = System.currentTimeMillis();
+
         new MergeSortParallel(inputArr).compute();
+
+        long data = System.currentTimeMillis() - test;
+
+        System.out.println("MergeSortParallelTest: " + data);
 
         boolean isSorted = true;
 
