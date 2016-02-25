@@ -15,7 +15,7 @@ public class MergeSortParallel extends RecursiveTask<Void> {
 
     @Override
     protected Void compute() {
-        if (list.length < 14) { // small enough task, do it
+        if (list.length < 14) { // small enough task, do it (14 not finalized)
             sort(list);
         }
         else { // task too large, make subtasks
