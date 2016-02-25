@@ -21,6 +21,8 @@ public class Main {
             long start = 0;
             long stop = 0;
 
+            System.gc();
+
             if (nextLine == 1) {
                 System.out.println("non-parallel");
 
@@ -52,7 +54,7 @@ public class Main {
 
     private static float[] generateArray() {
         Random r = new Random();
-        float[] floats = new float[100000];
+        float[] floats = new float[10000000];
 
         for (int i = 0; i < floats.length; i++) {
             floats[i] = r.nextFloat();
