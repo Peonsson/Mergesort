@@ -1,5 +1,3 @@
-import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
-
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -32,8 +30,7 @@ public class Main {
 
                 long diff = stop - start;
                 System.out.println("Difference = " + diff);
-            }
-            else if (nextLine == 2) {
+            } else if (nextLine == 2) {
                 System.out.println("parallel");
 
                 start = System.currentTimeMillis();
@@ -42,8 +39,7 @@ public class Main {
 
                 long diff = stop - start;
                 System.out.println("Difference = " + diff);
-            }
-            else {
+            } else {
                 System.out.println("You are doing it wrong, retard.");
             }
 

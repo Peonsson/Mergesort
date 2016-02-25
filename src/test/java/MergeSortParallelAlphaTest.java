@@ -8,6 +8,7 @@ import java.util.Random;
  */
 public class MergeSortParallelAlphaTest {
 
+    //TODO: print graph or average an sequence interval of 10,8,6,4,2 numbers.
 
     @Test
     public void testMergeSortParallel() throws Exception {
@@ -19,13 +20,12 @@ public class MergeSortParallelAlphaTest {
             floats[i] = r.nextFloat();
         }
 
-        long min = 999999999999l;
+        long min = Long.MAX_VALUE;
         int threshold;
 
         for (int i = 1; i < 1000; i++) {
 
-
-            float[] floatCopy = Arrays.copyOfRange(floats,0,floats.length);
+            float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
             System.gc();
             Thread.sleep(1000);
 
@@ -35,7 +35,7 @@ public class MergeSortParallelAlphaTest {
 
             long data = System.currentTimeMillis() - test;
 
-            if(data < min) {
+            if (data < min) {
                 min = data;
                 threshold = i;
                 System.out.println("new min: " + min + ", threshold: " + threshold);

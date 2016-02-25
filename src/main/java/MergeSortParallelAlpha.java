@@ -4,7 +4,7 @@ import java.util.concurrent.RecursiveTask;
 /**
  * Created by Peonsson on 25/02/16.
  */
-public class MergeSortParallelAlpha  extends RecursiveTask<Void> {
+public class MergeSortParallelAlpha extends RecursiveTask<Void> {
 
 
     private final int testLength;
