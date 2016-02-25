@@ -3,7 +3,7 @@ import org.junit.Test;
 import java.util.Random;
 
 /**
- * Created by Peonsson on 25/02/16.
+ * Created by Peonsson and roppe546 on 25/02/16.
  */
 public class MergeSortParallelAlphaTest {
 
