@@ -1,6 +1,5 @@
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -60,8 +59,6 @@ public class MergeSortParallelTest {
                 isSorted = false;
         }
 
-        System.out.println(Arrays.toString(inputArr));
-
         assert (isSorted);
     }
 
@@ -79,7 +76,6 @@ public class MergeSortParallelTest {
                 isSorted = false;
         }
 
-        System.out.println(Arrays.toString(inputArr));
 
         assert (isSorted);
     }
@@ -98,8 +94,6 @@ public class MergeSortParallelTest {
                 isSorted = false;
         }
 
-        System.out.println(Arrays.toString(inputArr));
-
         assert (isSorted);
     }
 
@@ -116,8 +110,6 @@ public class MergeSortParallelTest {
             if (inputArr[i - 1] > inputArr[i])
                 isSorted = false;
         }
-
-        System.out.println(Arrays.toString(inputArr));
 
         assert (isSorted);
     }
