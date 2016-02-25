@@ -43,8 +43,6 @@ public class MergeSortParallelTest {
                 isSorted = false;
         }
 
-        System.out.println(Arrays.toString(inputArr));
-
         assert (isSorted);
     }
 
