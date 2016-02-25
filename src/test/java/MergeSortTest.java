@@ -1,14 +1,28 @@
 import org.junit.Test;
 
+import java.util.Random;
+
 /**
  * Created by Peonsson & roppe546 on 2016-02-25.
  */
 public class MergeSortTest {
 
+    private float[] generateArray() {
+
+        Random r = new Random();
+        float[] floats = new float[100000];
+
+        for (int i = 0; i < floats.length; i++) {
+            floats[i] = r.nextFloat();
+        }
+
+        return floats;
+    }
+
     @Test
     public void testMergeSortSort() throws Exception {
 
-        float[] inputArr = {45.5f, 23.0f, 11.2f, 89.9f, 77.3f, 98.1f, 4.4f, 28.01f, 65.2f, 43.8f};
+        float[] inputArr = generateArray();
 
         MergeSort.sort(inputArr);
 
