@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import java.util.Arrays;
+
 /**
  * Created by Peonsson & roppe546 on 2016-02-25.
  */
