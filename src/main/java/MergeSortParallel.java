@@ -1,10 +1,11 @@
 import java.util.Arrays;
+import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.RecursiveTask;
 
 /**
  * Takes an array of ints and sorts it with Merge sort.
  */
-public class MergeSortParallel extends RecursiveTask<Void> {
+public class MergeSortParallel extends RecursiveAction {
 
     private float[] list;
 
@@ -13,23 +14,18 @@ public class MergeSortParallel extends RecursiveTask<Void> {
     }
 
     @Override
-    protected Void compute() {
-        if (list.length < 13) { // small enough task, do it
+    protected void compute() {
+        if (list.length < 75) { // small enough task, do it
             sort(list);
         } else { // task too large, make subtasks
 
             float[] left = Arrays.copyOfRange(list, 0, list.length / 2);
             float[] right = Arrays.copyOfRange(list, (list.length / 2), list.length);
 
-            invokeAll(new MergeSortParallel(left));
-            invokeAll(new MergeSortParallel(right));
+            invokeAll(new MergeSortParallel(left), new MergeSortParallel(right));
 
             merge(left, right, list);
-
-            return null;
         }
-
-        return null;
     }
 
     public void sort(float[] a) {
