@@ -1,38 +1,44 @@
-/**
- * Created by Peonsson on 24/02/16.
- */
+import java.util.Arrays;
 
 /**
  * Takes an array of ints and sorts it with Merge sort.
  */
 public class MergeSort {
+    static public void sort(float[] a) {
+        if (a.length > 1) {
+            float[] b = java.util.Arrays.copyOfRange(a, 0, a.length / 2);
+            float[] c = java.util.Arrays.copyOfRange(a, a.length / 2, a.length);
 
-    private static int[] arr;
+            sort(b);
+            sort(c);
 
-    public static void sort(int[] myList) {
-
-        arr = myList;
-        doSort(0, arr.length - 1);
-    }
-
-    private static void doSort(int low, int high) {
-
-        if (low < high) {
-
-            int mid = low + (high - low) / 2;
-
-            doSort(low, mid);
-            doSort(mid + 1, high);
-            merge(low, mid, high);
+            merge(b, c, a);
         }
     }
 
-    private static void merge(int low, int mid, int high) {
+    static private void merge(float[] a, float[] b, float[] c) {
+        int indexA = 0;
+        int indexB = 0;
+        int indexC = 0;
 
-        int[] tempArr = new int[arr.length];
+        while (indexA < a.length && indexB < b.length) {
+            if (a[indexA] < b[indexB]) {
+                c[indexC++] = a[indexA];
+                indexA++;
+            } else {
+                c[indexC++] = b[indexB];
+                indexB++;
+            }
+        }
 
-        for (int i = low; i <= high; i++) {
-            tempArr[i] = arr[i];
+        while (indexA < a.length) {
+            c[indexC++] = a[indexA];
+            indexA++;
+        }
+
+        while (indexB < b.length) {
+            c[indexC++] = b[indexB];
+            indexB++;
         }
     }
 }
