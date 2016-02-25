@@ -23,11 +23,11 @@ public class MergeSortParallelAlphaTest {
         long min = Long.MAX_VALUE;
         int threshold;
 
-        for (int i = 1; i < 1000; i++) {
+        for (int i = 1; i < 1000000; i = i + 10) {
 
             float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
             System.gc();
-            Thread.sleep(1000);
+            Thread.sleep(150);
 
             long test = System.currentTimeMillis();
 
