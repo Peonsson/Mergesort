@@ -1,5 +1,6 @@
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -18,18 +19,29 @@ public class MergeSortParallelAlphaTest {
             floats[i] = r.nextFloat();
         }
 
+        long min = 999999999999l;
+        int threshold;
+
         for (int i = 1; i < 1000; i++) {
 
+
+            float[] floatCopy = Arrays.copyOfRange(floats,0,floats.length);
             System.gc();
             Thread.sleep(1000);
 
             long test = System.currentTimeMillis();
 
-            new MergeSortParallelAlpha(floats, i).compute();
+            new MergeSortParallelAlpha(floatCopy, i).compute();
 
             long data = System.currentTimeMillis() - test;
 
-            System.out.println("threshhold: " + i + ", time: " + data);
+            if(data < min) {
+                min = data;
+                threshold = i;
+                System.out.println("new min: " + min + ", threshold: " + threshold);
+            }
+
+            System.out.println("threshold: " + i + ", time: " + data);
         }
 
 
