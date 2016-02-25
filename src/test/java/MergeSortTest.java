@@ -24,6 +24,9 @@ public class MergeSortTest {
 
         float[] inputArr = generateArray();
 
+        System.gc();
+        Thread.sleep(1000);
+
         long test = System.currentTimeMillis();
 
         MergeSort.sort(inputArr);

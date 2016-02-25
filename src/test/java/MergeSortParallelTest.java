@@ -11,7 +11,7 @@ public class MergeSortParallelTest {
     private float[] generateArray() {
 
         Random r = new Random();
-        float[] floats = new float[6000];
+        float[] floats = new float[10000000];
 
         for (int i = 0; i < floats.length; i++) {
             floats[i] = r.nextFloat();
@@ -24,6 +24,9 @@ public class MergeSortParallelTest {
     public void testMergeSortSort() throws Exception {
 
         float[] inputArr = generateArray();
+
+        System.gc();
+        Thread.sleep(1000);
 
         long test = System.currentTimeMillis();
 
