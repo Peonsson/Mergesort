@@ -1,11 +1,10 @@
 import java.util.Arrays;
-import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.RecursiveAction;
 
 /**
  * Created by Peonsson on 25/02/16.
  */
-public class MergeSortParallelAlpha extends RecursiveTask<Void> {
-
+public class MergeSortParallelAlpha extends RecursiveAction {
 
     private final int testLength;
     private float[] list;
@@ -16,7 +15,7 @@ public class MergeSortParallelAlpha extends RecursiveTask<Void> {
     }
 
     @Override
-    protected Void compute() {
+    protected void compute() {
         if (list.length < testLength) { // small enough task, do it
             sort(list);
         } else { // task too large, make subtasks
@@ -25,13 +24,8 @@ public class MergeSortParallelAlpha extends RecursiveTask<Void> {
             float[] right = Arrays.copyOfRange(list, (list.length / 2), list.length);
 
             invokeAll(new MergeSortParallel(left), new MergeSortParallel(right));
-
             merge(left, right, list);
-
-            return null;
         }
-
-        return null;
     }
 
     public void sort(float[] a) {
