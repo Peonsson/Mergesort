@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.concurrent.RecursiveAction;
-import java.util.concurrent.RecursiveTask;
 
 /**
  * Takes an array of ints and sorts it with Merge sort.

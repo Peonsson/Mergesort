@@ -1,3 +1,5 @@
+import com.sun.xml.internal.bind.v2.model.annotation.Quick;
+
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -9,42 +11,129 @@ public class Main {
     public static void main(String[] args) {
 
         float[] originalFloats = generateArray();
+        boolean running = true;
 
         Scanner scan = new Scanner(System.in);
-        int nextLine = scan.nextInt();
 
+        while (running) {
+            System.out.println("Do you want to try merge sort (1) or quicksort (2)? 0 to quit.");
+            int nextLine = scan.nextInt();
+
+            switch (nextLine) {
+                case (1) :
+                    runMergeSort(originalFloats, scan);
+                    break;
+                case (2) :
+                    runQuicksort(originalFloats, scan);
+                    break;
+                case (0) :
+                    running = false;
+                    break;
+                default :
+                    break;
+            }
+        }
+    }
+
+    private static void runMergeSort(float[] originalFloats, Scanner scan) {
         float[] copyFloats = Arrays.copyOfRange(originalFloats, 0, originalFloats.length);
 
-        while (nextLine != 0) {
+        boolean runningMergeSort = true;
+
+        System.out.println("Merge sort:\n" +
+                "1 - Non-parallel\n" +
+                "2 - Parallel\n" +
+                "0 - Quit\n");
+
+        while (runningMergeSort) {
             long start = 0;
             long stop = 0;
 
+            int nextLine = scan.nextInt();
             System.gc();
 
-            if (nextLine == 1) {
-                System.out.println("non-parallel");
+            switch (nextLine) {
+                case (1) :
+                    System.out.println("Merge sort: Non-parallel");
 
-                start = System.currentTimeMillis();
-                MergeSort.sort(copyFloats);
-                stop = System.currentTimeMillis();
+                    start = System.currentTimeMillis();
+                    MergeSort.sort(copyFloats);
+                    stop = System.currentTimeMillis();
 
-                long diff = stop - start;
-                System.out.println("Difference = " + diff);
-            } else if (nextLine == 2) {
-                System.out.println("parallel");
+                    long diff = stop - start;
+                    System.out.println("Time: " + diff);
+                    break;
+                case (2) :
+                    System.out.println("Merge sort: parallel");
 
-                start = System.currentTimeMillis();
-                new MergeSortParallel(copyFloats).compute();
-                stop = System.currentTimeMillis();
+                    start = System.currentTimeMillis();
+                    new MergeSortParallel(copyFloats).compute();
+                    stop = System.currentTimeMillis();
 
-                long diff = stop - start;
-                System.out.println("Difference = " + diff);
-            } else {
-                System.out.println("You are doing it wrong, retard.");
+                    diff = stop - start;
+                    System.out.println("Time: " + diff);
+                    break;
+                case (0) :
+                    runningMergeSort = false;
+                    break;
+                default :
+                    break;
             }
 
-            copyFloats = Arrays.copyOfRange(originalFloats, 0, originalFloats.length);
-            nextLine = scan.nextInt();
+            if (runningMergeSort) {
+                copyFloats = Arrays.copyOfRange(originalFloats, 0, originalFloats.length);
+            }
+        }
+    }
+
+    private static void runQuicksort(float[] originalFloats, Scanner scan) {
+        float[] copyFloats = Arrays.copyOfRange(originalFloats, 0, originalFloats.length);
+
+        boolean runningQuickSort = true;
+
+        System.out.println("Quick sort:\n" +
+                "1 - Non-parallel\n" +
+                "2 - Parallel\n" +
+                "0 - Quit\n");
+
+        while (runningQuickSort) {
+            long start = 0;
+            long stop = 0;
+
+            int nextLine = scan.nextInt();
+            System.gc();
+
+            switch (nextLine) {
+                case (1) :
+                    System.out.println("Quick sort: Non-parallel");
+
+                    start = System.currentTimeMillis();
+                    Quicksort.sort(copyFloats);
+                    stop = System.currentTimeMillis();
+
+                    long diff = stop - start;
+                    System.out.println("Time: " + diff);
+                    break;
+                case (2) :
+                    System.out.println("Quick sort: parallel");
+
+                    start = System.currentTimeMillis();
+                    new QuicksortParallel(copyFloats).compute();
+                    stop = System.currentTimeMillis();
+
+                    diff = stop - start;
+                    System.out.println("Time: " + diff);
+                    break;
+                case (0) :
+                    runningQuickSort = false;
+                    break;
+                default :
+                    break;
+            }
+
+            if (runningQuickSort) {
+                copyFloats = Arrays.copyOfRange(originalFloats, 0, originalFloats.length);
+            }
         }
     }
 

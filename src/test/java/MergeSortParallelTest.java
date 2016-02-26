@@ -38,13 +38,7 @@ public class MergeSortParallelTest {
         System.gc();
         Thread.sleep(1000);
 
-        long test = System.currentTimeMillis();
-
         new MergeSortParallel(inputArr).compute();
-
-        long data = System.currentTimeMillis() - test;
-
-        System.out.println("MergeSortParallelTest: " + data);
 
         boolean isSorted = true;
 
@@ -86,7 +80,6 @@ public class MergeSortParallelTest {
             if (inputArr[i - 1] > inputArr[i])
                 isSorted = false;
         }
-
 
         assert (isSorted);
     }
