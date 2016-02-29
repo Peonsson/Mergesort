@@ -24,9 +24,9 @@ public class MergeSortParallelAlphaTest {
 
         for (int i = 1; i < 102; i = i + 2) {
 
-            float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
-
             for (int j = 0; j < 21; j++) {
+
+                float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
 
                 System.gc();
                 Thread.sleep(150);
