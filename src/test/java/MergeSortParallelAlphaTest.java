@@ -8,8 +8,6 @@ import java.util.Random;
  */
 public class MergeSortParallelAlphaTest {
 
-    //TODO: print graph or average an sequence interval of 12, 10, 8, 6, 4, 2 numbers.
-
     @Test
     public void testMergeSortParallel() throws Exception {
 
@@ -22,7 +20,7 @@ public class MergeSortParallelAlphaTest {
 
         long avg = 0;
 
-        for (int i = 1; i < 102; i = i + 2) {
+        for (int i = 1; i < 110002; i = i + 1332) {
 
             for (int j = 0; j < 21; j++) {
 
