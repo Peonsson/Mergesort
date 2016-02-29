@@ -20,30 +20,29 @@ public class MergeSortParallelAlphaTest {
             floats[i] = r.nextFloat();
         }
 
-        long min = Long.MAX_VALUE;
-        int threshold;
+        long avg = 0;
 
-        for (int i = 1; i < 1000000; i = i + 10) {
+        for (int i = 1; i < 102; i = i + 2) {
 
             float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
-            System.gc();
-            Thread.sleep(150);
 
-            long test = System.currentTimeMillis();
+            for (int j = 0; j < 21; j++) {
 
-            new MergeSortParallelAlpha(floatCopy, i).compute();
+                System.gc();
+                Thread.sleep(150);
 
-            long data = System.currentTimeMillis() - test;
+                long test = System.currentTimeMillis();
+                new MergeSortParallelAlpha(floatCopy, i).compute();
+                long data = System.currentTimeMillis() - test;
 
-            if (data < min) {
-                min = data;
-                threshold = i;
-                System.out.println("new min: " + min + ", threshold: " + threshold);
+                if (j > 0)
+                    avg += data;
             }
 
-            System.out.println("threshold: " + i + ", time: " + data);
-        }
+            System.out.println("thresh: " + i + ", avg: " + avg / 20);
+            avg = 0;
 
+        }
 
 //        boolean isSorted = true;
 //
