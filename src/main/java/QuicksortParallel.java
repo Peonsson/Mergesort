@@ -14,7 +14,7 @@ public class QuicksortParallel extends RecursiveAction {
 
     @Override
     protected void compute() {
-        if (list.length < 75) { // small enough task, do it
+        if (list.length < 7) { // small enough task, do it
             sort(list);
         }
         else { // task too large, make subtasks

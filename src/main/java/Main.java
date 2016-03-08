@@ -3,6 +3,8 @@ import com.sun.xml.internal.bind.v2.model.annotation.Quick;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveAction;
 
 /**
  * Created by robin on 25/2/16.
@@ -66,8 +68,11 @@ public class Main {
                 case (2) :
                     System.out.println("Merge sort: parallel");
 
+                    ForkJoinPool pool = new ForkJoinPool();
+                    RecursiveAction task = new MergeSortParallel(copyFloats);
+
                     start = System.currentTimeMillis();
-                    new MergeSortParallel(copyFloats).compute();
+                    pool.invoke(task);
                     stop = System.currentTimeMillis();
 
                     diff = stop - start;
@@ -117,8 +122,11 @@ public class Main {
                 case (2) :
                     System.out.println("Quick sort: parallel");
 
+                    ForkJoinPool pool = new ForkJoinPool();
+                    RecursiveAction task = new QuicksortParallel(copyFloats);
+
                     start = System.currentTimeMillis();
-                    new QuicksortParallel(copyFloats).compute();
+                    pool.invoke(task);
                     stop = System.currentTimeMillis();
 
                     diff = stop - start;
