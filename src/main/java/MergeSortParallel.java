@@ -7,61 +7,55 @@ import java.util.concurrent.RecursiveAction;
 public class MergeSortParallel extends RecursiveAction {
 
     private float[] list;
+    private int first;
+    private int last;
+    private int threshold = 10000;
 
-    public MergeSortParallel(float[] list) {
+    public MergeSortParallel(float[] list, int first, int last) {
         this.list = list;
+        this.first = first;
+        this.last = last;
     }
 
     @Override
     protected void compute() {
-        if (list.length < 7) { // small enough task, do it
-            sort(list);
-        } else { // task too large, make subtasks
-
-            float[] left = Arrays.copyOfRange(list, 0, list.length / 2);
-            float[] right = Arrays.copyOfRange(list, (list.length / 2), list.length);
-
-            invokeAll(new MergeSortParallel(left), new MergeSortParallel(right));
-
-            merge(left, right, list);
+        if (last - first < threshold) { // small enough task, do it
+            Arrays.sort(list, first, last);
+        }
+        else { // task too large, make subtasks
+            int mid = first + (last - first) / 2;
+            invokeAll(new MergeSortParallel(list, first, mid), new MergeSortParallel(list, mid, last));
+            merge(mid);
         }
     }
 
-    public void sort(float[] a) {
-        if (a.length > 1) {
-            float[] b = java.util.Arrays.copyOfRange(a, 0, a.length / 2);
-            float[] c = java.util.Arrays.copyOfRange(a, a.length / 2, a.length);
+    private void merge(int mid) {
+        int indexA = first;
+        int indexB = mid;
+        int indexTemp = 0;
 
-            sort(b);
-            sort(c);
+        float[] temp = new float[last - first];
 
-            merge(b, c, a);
-        }
-    }
-
-    private void merge(float[] a, float[] b, float[] c) {
-        int indexA = 0;
-        int indexB = 0;
-        int indexC = 0;
-
-        while (indexA < a.length && indexB < b.length) {
-            if (a[indexA] < b[indexB]) {
-                c[indexC++] = a[indexA];
+        while (indexA < mid && indexB < last) {
+            if (list[indexA] < list[indexB]) {
+                temp[indexTemp++] = list[indexA];
                 indexA++;
             } else {
-                c[indexC++] = b[indexB];
+                temp[indexTemp++] = list[indexB];
                 indexB++;
             }
         }
 
-        while (indexA < a.length) {
-            c[indexC++] = a[indexA];
+        while (indexA < mid) {
+            temp[indexTemp++] = list[indexA];
             indexA++;
         }
 
-        while (indexB < b.length) {
-            c[indexC++] = b[indexB];
+        while (indexB < last) {
+            temp[indexTemp++] = list[indexB];
             indexB++;
         }
+
+        System.arraycopy(temp, 0, list, first, temp.length);
     }
 }

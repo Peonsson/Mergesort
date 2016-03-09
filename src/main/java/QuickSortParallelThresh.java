@@ -4,17 +4,18 @@ import java.util.concurrent.RecursiveAction;
 /**
  * Created by Peonsson & roppe546 on 25/02/16.
  */
-public class QuicksortParallel extends RecursiveAction {
+public class QuicksortParallelThresh extends RecursiveAction {
 
     private float[] list;
     private int first;
     private int last;
-    private int threshold = 10000;
+    private int threshold;
 
-    public QuicksortParallel(float[] list, int first, int last) {
+    public QuicksortParallelThresh(float[] list, int first, int last, int threshold) {
         this.list = list;
         this.first = first;
         this.last = last;
+        this.threshold = threshold;
     }
 
     @Override
@@ -24,9 +25,22 @@ public class QuicksortParallel extends RecursiveAction {
         }
         else { // task too large, make subtasks
             int pivot = partition();
-            invokeAll(new QuicksortParallel(list, first, pivot - 1), new QuicksortParallel(list, pivot + 1, last));
+            invokeAll(new QuicksortParallelThresh(list, first, pivot - 1, threshold), new QuicksortParallelThresh(list, pivot + 1, last, threshold));
         }
     }
+
+   /* static public void sort(float[] a) {
+        sort(a, 0, a.length - 1);
+    }
+
+    private void sort(float[] a, int first, int last) {
+        if (first < last) {
+            int pivIndex = partition(a, first, last);
+
+            sort(a, first, pivIndex - 1);
+            sort(a, pivIndex + 1, last);
+        }
+    }*/
 
     private int partition() {
         float pivVal = list[first];

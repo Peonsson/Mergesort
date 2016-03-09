@@ -12,7 +12,7 @@ import java.util.concurrent.RecursiveAction;
 public class Main {
     public static void main(String[] args) {
 
-        float[] originalFloats = generateArray();
+        float[] originalFloats = generateArray(10000000);
         boolean running = true;
 
         Scanner scan = new Scanner(System.in);
@@ -59,7 +59,7 @@ public class Main {
                     System.out.println("Merge sort: Non-parallel");
 
                     start = System.currentTimeMillis();
-                    MergeSort.sort(copyFloats);
+                    MergeSort.sort(copyFloats, 0, copyFloats.length);
                     stop = System.currentTimeMillis();
 
                     long diff = stop - start;
@@ -69,7 +69,7 @@ public class Main {
                     System.out.println("Merge sort: parallel");
 
                     ForkJoinPool pool = new ForkJoinPool();
-                    RecursiveAction task = new MergeSortParallel(copyFloats);
+                    RecursiveAction task = new MergeSortParallel(copyFloats, 0, copyFloats.length);
 
                     start = System.currentTimeMillis();
                     pool.invoke(task);
@@ -123,7 +123,7 @@ public class Main {
                     System.out.println("Quick sort: parallel");
 
                     ForkJoinPool pool = new ForkJoinPool();
-                    RecursiveAction task = new QuicksortParallel(copyFloats);
+                    RecursiveAction task = new QuicksortParallel(copyFloats, 0, copyFloats.length - 1);
 
                     start = System.currentTimeMillis();
                     pool.invoke(task);
@@ -145,11 +145,11 @@ public class Main {
         }
     }
 
-    private static float[] generateArray() {
+    private static float[] generateArray(int size) {
         Random r = new Random();
-        float[] floats = new float[10000000];
+        float[] floats = new float[size];
 
-        for (int i = 0; i < floats.length; i++) {
+        for (int i = 0; i < size; i++) {
             floats[i] = r.nextFloat();
         }
 
