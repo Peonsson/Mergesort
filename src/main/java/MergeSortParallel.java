@@ -9,7 +9,7 @@ public class MergeSortParallel extends RecursiveAction {
     private float[] list;
     private int first;
     private int last;
-    private int threshold = 10000;
+    private int threshold = 8000;
 
     public MergeSortParallel(float[] list, int first, int last) {
         this.list = list;

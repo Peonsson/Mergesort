@@ -1,4 +1,6 @@
+import com.sun.scenario.effect.Merge;
 import com.sun.xml.internal.bind.v2.model.annotation.Quick;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.ExplicitGroup;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -18,20 +20,94 @@ public class Main {
         Scanner scan = new Scanner(System.in);
 
         while (running) {
-            System.out.println("Do you want to try merge sort (1) or quicksort (2)? 0 to quit.");
+            System.out.println("1 - Merge sort\n" +
+                    "2 - Quicksort\n" +
+                    "3 - Arrays.sort() (20 rounds)\n" +
+                    "4 - Arrays.parallelSort() (20 rounds)\n" +
+                    "0 - Quit\n");
             int nextLine = scan.nextInt();
 
             switch (nextLine) {
-                case (1) :
+                case (1):
                     runMergeSort(originalFloats, scan);
                     break;
-                case (2) :
+                case (2):
                     runQuicksort(originalFloats, scan);
                     break;
-                case (0) :
+                case (3) :
+                    float[] floats = generateArray(100000000);
+
+                    // Warm up the virtual machine
+                    System.out.println("Warming up...");
+                    for (int i = 0; i < 10; i++) {
+                        float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
+                        System.gc();
+                        try {
+                            Thread.sleep(200);
+                        } catch (Exception ex) {
+
+                        }
+
+                        Arrays.sort(floatCopy);
+                    }
+
+                    // Run the actual test
+                    System.out.println("Running tests...");
+                    for (int i = 0; i < 20; i++) {
+                        float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
+                        System.gc();
+                        try {
+                            Thread.sleep(200);
+                        } catch (Exception ex) {
+                        }
+
+                        long startTime = System.currentTimeMillis();
+                        Arrays.sort(floatCopy);
+                        long timeElapsed = System.currentTimeMillis() - startTime;
+
+                        System.out.println(timeElapsed);
+                    }
+                    System.out.println("Done!");
+                    break;
+                case (4) :
+                    floats = generateArray(100000000);
+
+                    // Warm up the virtual machine
+                    System.out.println("Warming up...");
+                    for (int i = 0; i < 10; i++) {
+                        float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
+                        System.gc();
+                        try {
+                            Thread.sleep(200);
+                        } catch (Exception ex) {
+
+                        }
+
+                        Arrays.parallelSort(floatCopy);
+                    }
+
+                    // Run the actual test
+                    System.out.println("Running tests...");
+                    for (int i = 0; i < 20; i++) {
+                        float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
+                        System.gc();
+                        try {
+                            Thread.sleep(200);
+                        } catch (Exception ex) {
+                        }
+
+                        long startTime = System.currentTimeMillis();
+                        Arrays.parallelSort(floatCopy);
+                        long timeElapsed = System.currentTimeMillis() - startTime;
+
+                        System.out.println(timeElapsed);
+                    }
+                    System.out.println("Done!");
+                    break;
+                case (0):
                     running = false;
                     break;
-                default :
+                default:
                     break;
             }
         }
@@ -40,11 +116,15 @@ public class Main {
     private static void runMergeSort(float[] originalFloats, Scanner scan) {
         float[] copyFloats = Arrays.copyOfRange(originalFloats, 0, originalFloats.length);
 
+        ForkJoinPool pool = new ForkJoinPool();
+
         boolean runningMergeSort = true;
 
         System.out.println("Merge sort:\n" +
                 "1 - Non-parallel\n" +
                 "2 - Parallel\n" +
+                "3 - Run 20 tests (non-parallel)\n" +
+                "4 - Run 20 tests (parallel)\n" +
                 "0 - Quit\n");
 
         while (runningMergeSort) {
@@ -55,7 +135,7 @@ public class Main {
             System.gc();
 
             switch (nextLine) {
-                case (1) :
+                case (1):
                     System.out.println("Merge sort: Non-parallel");
 
                     start = System.currentTimeMillis();
@@ -65,10 +145,9 @@ public class Main {
                     long diff = stop - start;
                     System.out.println("Time: " + diff);
                     break;
-                case (2) :
+                case (2):
                     System.out.println("Merge sort: parallel");
 
-                    ForkJoinPool pool = new ForkJoinPool();
                     RecursiveAction task = new MergeSortParallel(copyFloats, 0, copyFloats.length);
 
                     start = System.currentTimeMillis();
@@ -78,10 +157,82 @@ public class Main {
                     diff = stop - start;
                     System.out.println("Time: " + diff);
                     break;
-                case (0) :
+                case (3) :
+                    float[] floats = generateArray(100000000);
+
+                    // Warm up the virtual machine
+                    System.out.println("Warming up...");
+                    for (int i = 0; i < 10; i++) {
+                        float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
+                        System.gc();
+                        try {
+                            Thread.sleep(200);
+                        } catch (Exception ex) {
+
+                        }
+
+                        MergeSort.sort(floatCopy, 0, floatCopy.length);
+                    }
+
+                    // Run the actual test
+                    System.out.println("Running tests...");
+                    for (int i = 0; i < 20; i++) {
+                        float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
+                        System.gc();
+                        try {
+                            Thread.sleep(200);
+                        } catch (Exception ex) {
+                        }
+
+                        long startTime = System.currentTimeMillis();
+                        MergeSort.sort(floatCopy, 0, floatCopy.length);
+                        long timeElapsed = System.currentTimeMillis() - startTime;
+
+                        System.out.println(timeElapsed);
+                    }
+                    System.out.println("Done!");
+                    break;
+                case (4):
+                    floats = generateArray(100000000);
+
+                    // Warm up the virtual machine
+                    System.out.println("Warming up...");
+                    for (int i = 0; i < 10; i++) {
+                        float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
+                        System.gc();
+                        try {
+                            Thread.sleep(200);
+                        } catch (Exception ex) {
+                        }
+
+                        task = new MergeSortParallel(floatCopy, 0, floatCopy.length);
+                        pool.invoke(task);
+                    }
+
+                    // Run the actual test
+                    System.out.println("Running tests...");
+                    for (int i = 0; i < 20; i++) {
+                        float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
+                        System.gc();
+                        try {
+                            Thread.sleep(200);
+                        } catch (Exception ex) {
+                        }
+
+                        task = new MergeSortParallel(floatCopy, 0, floatCopy.length);
+
+                        long startTime = System.currentTimeMillis();
+                        pool.invoke(task);
+                        long timeElapsed = System.currentTimeMillis() - startTime;
+
+                        System.out.println(timeElapsed);
+                    }
+                    System.out.println("Done!");
+                    break;
+                case (0):
                     runningMergeSort = false;
                     break;
-                default :
+                default:
                     break;
             }
 
@@ -94,11 +245,15 @@ public class Main {
     private static void runQuicksort(float[] originalFloats, Scanner scan) {
         float[] copyFloats = Arrays.copyOfRange(originalFloats, 0, originalFloats.length);
 
+        ForkJoinPool pool = new ForkJoinPool();
+
         boolean runningQuickSort = true;
 
         System.out.println("Quick sort:\n" +
                 "1 - Non-parallel\n" +
                 "2 - Parallel\n" +
+                "3 - Run 20 tests (non-parallel)\n" +
+                "4 - Run 20 tests (parallel)\n" +
                 "0 - Quit\n");
 
         while (runningQuickSort) {
@@ -109,7 +264,7 @@ public class Main {
             System.gc();
 
             switch (nextLine) {
-                case (1) :
+                case (1):
                     System.out.println("Quick sort: Non-parallel");
 
                     start = System.currentTimeMillis();
@@ -119,10 +274,9 @@ public class Main {
                     long diff = stop - start;
                     System.out.println("Time: " + diff);
                     break;
-                case (2) :
+                case (2):
                     System.out.println("Quick sort: parallel");
 
-                    ForkJoinPool pool = new ForkJoinPool();
                     RecursiveAction task = new QuicksortParallel(copyFloats, 0, copyFloats.length - 1);
 
                     start = System.currentTimeMillis();
@@ -132,10 +286,82 @@ public class Main {
                     diff = stop - start;
                     System.out.println("Time: " + diff);
                     break;
-                case (0) :
+                case (3) :
+                    float[] floats = generateArray(100000000);
+
+                    // Warm up the virtual machine
+                    System.out.println("Warming up...");
+                    for (int i = 0; i < 10; i++) {
+                        float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
+                        System.gc();
+                        try {
+                            Thread.sleep(200);
+                        } catch (Exception ex) {
+
+                        }
+
+                        Quicksort.sort(floatCopy);
+                    }
+
+                    // Run the actual test
+                    System.out.println("Running tests...");
+                    for (int i = 0; i < 20; i++) {
+                        float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
+                        System.gc();
+                        try {
+                            Thread.sleep(200);
+                        } catch (Exception ex) {
+                        }
+
+                        long startTime = System.currentTimeMillis();
+                        Quicksort.sort(floatCopy);
+                        long timeElapsed = System.currentTimeMillis() - startTime;
+
+                        System.out.println(timeElapsed);
+                    }
+                    System.out.println("Done!");
+                    break;
+                case (4):
+                    floats = generateArray(100000000);
+
+                    // Warm up the virtual machine
+                    System.out.println("Warming up...");
+                    for (int i = 0; i < 10; i++) {
+                        float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
+                        System.gc();
+                        try {
+                            Thread.sleep(200);
+                        } catch (Exception ex) {
+                        }
+
+                        task = new QuicksortParallelThresh(floatCopy, 0, floatCopy.length - 1, 1000);
+                        pool.invoke(task);
+                    }
+
+                    // Run the actual test
+                    System.out.println("Running tests...");
+                    for (int i = 0; i < 20; i++) {
+                        float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
+                        System.gc();
+                        try {
+                            Thread.sleep(200);
+                        } catch (Exception ex) {
+                        }
+
+                        task = new QuicksortParallel(floatCopy, 0, floatCopy.length - 1);
+
+                        long startTime = System.currentTimeMillis();
+                        pool.invoke(task);
+                        long timeElapsed = System.currentTimeMillis() - startTime;
+
+                        System.out.println(timeElapsed);
+                    }
+                    System.out.println("Done!");
+                    break;
+                case (0):
                     runningQuickSort = false;
                     break;
-                default :
+                default:
                     break;
             }
 

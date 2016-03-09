@@ -12,7 +12,7 @@ public class MergeSortParallelThreshTest {
 
     @Test
     public void testMergeSortParallel() throws Exception {
-        float[] floats = generateArray(10000000);
+        float[] floats = generateArray(100000000);
 
         // Warm up the virtual machine
         System.out.println("Warming up...");
