@@ -14,7 +14,7 @@ import java.util.concurrent.RecursiveAction;
 public class Main {
     public static void main(String[] args) {
 
-        float[] originalFloats = generateArray(10000000);
+        float[] originalFloats = generateArray(100000000);
         boolean running = true;
 
         Scanner scan = new Scanner(System.in);
@@ -171,7 +171,7 @@ public class Main {
 
                         }
 
-                        MergeSort.sort(floatCopy, 0, floatCopy.length);
+                        MergeSort.sort(floatCopy, 0, copyFloats.length);
                     }
 
                     // Run the actual test
@@ -185,7 +185,7 @@ public class Main {
                         }
 
                         long startTime = System.currentTimeMillis();
-                        MergeSort.sort(floatCopy, 0, floatCopy.length);
+                        MergeSort.sort(floatCopy, 0, copyFloats.length);
                         long timeElapsed = System.currentTimeMillis() - startTime;
 
                         System.out.println(timeElapsed);
@@ -205,7 +205,7 @@ public class Main {
                         } catch (Exception ex) {
                         }
 
-                        task = new MergeSortParallel(floatCopy, 0, floatCopy.length);
+                        task = new MergeSortParallel(floatCopy, 0, copyFloats.length);
                         pool.invoke(task);
                     }
 
@@ -219,7 +219,7 @@ public class Main {
                         } catch (Exception ex) {
                         }
 
-                        task = new MergeSortParallel(floatCopy, 0, floatCopy.length);
+                        task = new MergeSortParallel(floatCopy, 0, copyFloats.length);
 
                         long startTime = System.currentTimeMillis();
                         pool.invoke(task);

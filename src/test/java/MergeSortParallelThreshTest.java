@@ -27,24 +27,28 @@ public class MergeSortParallelThreshTest {
         }
 
         // Thresholds used to try to find optimal value for merge sort
-        int[] thresholds = {100, 150, 200, 250, 300, 350, 500, 750, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000};
+        int[] thresholds = { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500, 9000, 9500, 10000, 11000, 12000, 13000, 14000, 15000, 20000, 25000, 30000, 35000, 40000, 45000, 50000, 100000, 175000, 250000, 350000, 450000, 500000, 600000 };
 
         // Run the actual test
         System.out.println("Running threshold tests...");
         for (int threshold : thresholds) {
-            float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
-            System.gc();
-            Thread.sleep(200);
+            for (int i = 0; i < 20; i++) {
+                float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
+                System.gc();
+                Thread.sleep(200);
 
-            ForkJoinPool pool = new ForkJoinPool();
-            RecursiveAction task = new MergeSortParallelThresh(floatCopy, 0, floatCopy.length, threshold);
+                ForkJoinPool pool = new ForkJoinPool();
+                RecursiveAction task = new MergeSortParallelThresh(floatCopy, 0, floatCopy.length, threshold);
 
-            long startTime = System.currentTimeMillis();
-            pool.invoke(task);
-            long timeElapsed = System.currentTimeMillis() - startTime;
-
-            System.out.println(timeElapsed);
+                long startTime = System.currentTimeMillis();
+                pool.invoke(task);
+                long timeElapsed = System.currentTimeMillis() - startTime;
+                System.out.print(timeElapsed + "\t");
+            }
+            System.out.println();
         }
+
+        System.out.println("Done!");
 
 //        for (int i = 100; i <= 10000; i = i + 50) {
 //

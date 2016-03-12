@@ -2,14 +2,16 @@ import java.util.Arrays;
 import java.util.concurrent.RecursiveAction;
 
 /**
- * Takes an array of ints and sorts it with Merge sort.
+ * Merge sort parallel.
+ *
+ * Created by Peonsson & roppe546 on 2016-03-16.
  */
 public class MergeSortParallel extends RecursiveAction {
 
     private float[] list;
     private int first;
     private int last;
-    private int threshold = 8000;
+    private int threshold = 45000;
 
     public MergeSortParallel(float[] list, int first, int last) {
         this.list = list;

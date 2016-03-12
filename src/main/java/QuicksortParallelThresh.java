@@ -29,19 +29,6 @@ public class QuicksortParallelThresh extends RecursiveAction {
         }
     }
 
-   /* static public void sort(float[] a) {
-        sort(a, 0, a.length - 1);
-    }
-
-    private void sort(float[] a, int first, int last) {
-        if (first < last) {
-            int pivIndex = partition(a, first, last);
-
-            sort(a, first, pivIndex - 1);
-            sort(a, pivIndex + 1, last);
-        }
-    }*/
-
     private int partition() {
         float pivVal = list[first];
         int up = first;

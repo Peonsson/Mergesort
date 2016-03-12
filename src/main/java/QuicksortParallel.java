@@ -9,7 +9,7 @@ public class QuicksortParallel extends RecursiveAction {
     private float[] list;
     private int first;
     private int last;
-    private int threshold = 2500;
+    private int threshold = 100000;
 
     public QuicksortParallel(float[] list, int first, int last) {
         this.list = list;
