@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.concurrent.RecursiveAction;
 
 /**
- * Merge sort parallel.
+ * Takes an array of floats and sorts it with parallel merge sort. Used when finding optimal threshold.
  *
  * Created by Peonsson & roppe546 on 2016-03-16.
  */

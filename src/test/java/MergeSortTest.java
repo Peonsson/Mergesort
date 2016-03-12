@@ -1,11 +1,10 @@
-import com.sun.scenario.effect.Merge;
 import org.junit.Test;
 
 import java.util.Random;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.RecursiveAction;
 
 /**
+ * This class tests the MergeSort class to make sure it functions properly.
+ *
  * Created by Peonsson & roppe546 on 2016-02-25.
  */
 public class MergeSortTest {

@@ -3,6 +3,8 @@ import org.junit.Test;
 import java.util.Random;
 
 /**
+ * This class tests the Quicksort class to make sure it functions properly.
+ *
  * Created by Peonsson & roppe546 on 2016-02-25.
  */
 public class QuicksortTest {

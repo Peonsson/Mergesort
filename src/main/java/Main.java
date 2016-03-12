@@ -1,7 +1,3 @@
-import com.sun.scenario.effect.Merge;
-import com.sun.xml.internal.bind.v2.model.annotation.Quick;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.ExplicitGroup;
-
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -9,7 +5,9 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
 /**
- * Created by robin on 25/2/16.
+ * This class makes it possible to manually run tests.
+ *
+ * Created by robin on 2016-02-25.
  */
 public class Main {
     public static void main(String[] args) {

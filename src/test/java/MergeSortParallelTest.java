@@ -5,6 +5,8 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
 /**
+ * This class tests the MergeSortParallel class to make sure it functions properly.
+ *
  * Created by Peonsson on 25/02/16.
  */
 public class MergeSortParallelTest {

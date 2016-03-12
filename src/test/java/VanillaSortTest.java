@@ -4,65 +4,79 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * Created by Peonsson on 29/02/16.
+ * This class runs the Arrays.sort() and Arrays.parallelSort() 20 times each and prints them so
+ * the time values can be used for measurements.
+ *
+ * Created by Peonsson & roppe546 on 2016-02-29.
  */
 public class VanillaSortTest {
 
     @Test
     public void testVanillaSortParallel() throws Exception {
+        float[] floats = generateArray(100000000);
 
-        Random r = new Random();
-        float[] floats = new float[10000000];
+        // Warm up the virtual machine
+        System.out.println("SortParallel: Warming up...");
+        for (int i = 0; i < 10; i++) {
+            float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
+            System.gc();
+            Thread.sleep(200);
 
-        for (int i = 0; i < floats.length; i++) {
-            floats[i] = r.nextFloat();
+            Arrays.parallelSort(floatCopy);
         }
 
-        long avg = 0;
-
-        for (int i = 1; i < 51; i++) {
-
+        // Run the actual test
+        System.out.println("SortParallel: Running threshold tests...");
+        for (int i = 0; i < 20; i++) {
             float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
-
             System.gc();
             Thread.sleep(200);
 
             long test = System.currentTimeMillis();
-            VanillaSort.sortParallel(floatCopy);
-            long data = System.currentTimeMillis() - test;
-
-            if (i > 1)
-                avg += data;
+            Arrays.parallelSort(floatCopy);
+            long timeElapsed = System.currentTimeMillis() - test;
+            System.out.println(timeElapsed);
         }
-        System.out.println("multi avg: " + avg / 50);
+        System.out.println("Done!");
     }
 
     @Test
     public void testVanillaSort() throws Exception {
+        float[] floats = generateArray(100000000);
 
-        Random r = new Random();
-        float[] floats = new float[10000000];
+        // Warm up the virtual machine
+        System.out.println("Sort: Warming up...");
+        for (int i = 0; i < 10; i++) {
+            float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
+            System.gc();
+            Thread.sleep(200);
 
-        for (int i = 0; i < floats.length; i++) {
-            floats[i] = r.nextFloat();
+            Arrays.sort(floatCopy);
         }
 
-        long avg = 0;
-
-        for (int i = 1; i < 51; i++) {
-
+        // Run the actual test
+        System.out.println("Sort: Running threshold tests...");
+        for (int i = 0; i < 20; i++) {
             float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
-
             System.gc();
             Thread.sleep(200);
 
             long test = System.currentTimeMillis();
-            VanillaSort.sort(floatCopy);
-            long data = System.currentTimeMillis() - test;
-
-            if (i > 1)
-                avg += data;
+            Arrays.sort(floatCopy);
+            long timeElapsed = System.currentTimeMillis() - test;
+            System.out.println(timeElapsed);
         }
-        System.out.println("single avg: " + avg / 50);
+        System.out.println("Done!");
+    }
+
+    private float[] generateArray(int size) {
+        Random r = new Random();
+        float[] floats = new float[size];
+
+        for (int i = 0; i < size; i++) {
+            floats[i] = r.nextFloat();
+        }
+
+        return floats;
     }
 }

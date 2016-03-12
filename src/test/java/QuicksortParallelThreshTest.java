@@ -6,7 +6,10 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
 /**
- * Created by Peonsson and roppe546 on 25/02/16.
+ * This class runs the QuicksortParallelThresh sorting methods with different threshold values, and prints
+ * the duration taken, so the data can be used for measurements.
+ *
+ * Created by Peonsson and roppe546 on 2016-02-25.
  */
 public class QuicksortParallelThreshTest {
 
@@ -49,28 +52,6 @@ public class QuicksortParallelThreshTest {
         }
 
         System.out.println("Done!");
-
-//        for (int i = 100; i <= 10000; i = i + 50) {
-//
-//            for (int j = 0; j < 21; j++) {
-//
-//                float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
-//
-//                System.gc();
-//                Thread.sleep(150);
-//
-//                long test = System.currentTimeMillis();
-//                new MergeSortParallelThresh(floatCopy, i).compute();
-//                long data = System.currentTimeMillis() - test;
-//
-//                if (j > 0)
-//                    avg += data;
-//            }
-//
-//            System.out.println("thresh: " + i + ", avg: " + avg / 20);
-//            avg = 0;
-//
-//        }
     }
 
     private float[] generateArray(int size) {
@@ -91,22 +72,5 @@ public class QuicksortParallelThreshTest {
         }
 
         return true;
-    }
-
-    private String arrayToString(float[] array) {
-        StringBuilder builder = new StringBuilder("[ ");
-
-        for (int i = 0; i < array.length; i++) {
-            if (i != array.length - 1) {
-                builder.append(array[i]);
-                builder.append(", ");
-            }
-            else {
-                builder.append(array[i]);
-                builder.append(" ]");
-            }
-        }
-
-        return builder.toString();
     }
 }

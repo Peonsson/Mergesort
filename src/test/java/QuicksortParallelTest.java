@@ -5,7 +5,9 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
 /**
- * Created by Peonsson on 25/02/16.
+ * This class tests the QuicksortParallel class to make sure it functions properly.
+ *
+ * Created by Peonsson & roppe546 on 2016-02-25.
  */
 public class QuicksortParallelTest {
 
@@ -82,22 +84,5 @@ public class QuicksortParallelTest {
         }
 
         return true;
-    }
-
-    private String arrayToString(float[] array) {
-        StringBuilder builder = new StringBuilder("[ ");
-
-        for (int i = 0; i < array.length; i++) {
-            if (i != array.length - 1) {
-                builder.append(array[i]);
-                builder.append(", ");
-            }
-            else {
-                builder.append(array[i]);
-                builder.append(" ]");
-            }
-        }
-
-        return builder.toString();
     }
 }

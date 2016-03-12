@@ -1,5 +1,8 @@
+
 /**
- * Created by Peonsson & roppe546 on 25/02/16.
+ * Takes an array of floats and sorts it with serial quicksort.
+ *
+ * Created by Peonsson & roppe546 on 2016-02-25.
  */
 public class Quicksort {
 

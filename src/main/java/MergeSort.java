@@ -1,7 +1,8 @@
-import java.util.Arrays;
 
 /**
- * Takes an array of ints and sorts it with Merge sort.
+ * Takes an array of floats and sorts it with serial merge sort.
+ *
+ * Created by Peonsson & roppe546 on 2016-03-16.
  */
 public class MergeSort {
     static public void sort(float[] a, int first, int last) {
