@@ -1,11 +1,11 @@
 /**
  * Created by Peonsson on 17/03/16.
  */
-public class Context {
+public class SortCompare {
 
     private Strategy strategy;
 
-    public Context(Strategy strategy) {
+    public SortCompare(Strategy strategy) {
         this.strategy = strategy;
     }
 
