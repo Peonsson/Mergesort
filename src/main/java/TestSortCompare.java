@@ -7,12 +7,12 @@ public class TestSortCompare {
 
         // Merge sort
 
-        SortCompare sortCompare = new SortCompare(new doMergeSort());
+        SortCompare sortCompare = new SortCompare(new DoMergeSort());
         sortCompare.sort();
 
         // Quicksort
 
-        sortCompare.setStrategy(new doQuicksort());
+        sortCompare.setStrategy(new DoQuicksort());
         sortCompare.sort();
     }
 }

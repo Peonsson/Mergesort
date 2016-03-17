@@ -11,14 +11,13 @@ public interface Strategy {
     void sort();
 }
 
-class doMergeSort implements Strategy {
+class DoMergeSort implements Strategy {
 
     public void sort() {
 
+        float[] floats = generateArray(100000000);
         ForkJoinPool pool = new ForkJoinPool();
         RecursiveAction task;
-
-        float[] floats = generateArray(100000000);
 
         // Warm up the virtual machine
         System.out.println("Warming up...");
@@ -67,11 +66,11 @@ class doMergeSort implements Strategy {
     }
 }
 
-class doQuicksort implements Strategy {
+class DoQuicksort implements Strategy {
 
     public void sort() {
-        float[] floats = generateArray(100000000);
 
+        float[] floats = generateArray(100000000);
         ForkJoinPool pool = new ForkJoinPool();
         RecursiveAction task;
 
