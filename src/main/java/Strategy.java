@@ -81,10 +81,9 @@ class DoQuicksort implements Strategy {
             System.gc();
             try {
                 Thread.sleep(200);
-            } catch (Exception ex) {
-            }
+            } catch (Exception ex) { }
 
-            task = new QuicksortParallelThresh(floatCopy, 0, floatCopy.length - 1, 1000);
+            task = new QuicksortParallel(floatCopy, 0, floatCopy.length - 1);
             pool.invoke(task);
         }
 
