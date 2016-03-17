@@ -6,7 +6,7 @@ import java.util.concurrent.RecursiveAction;
 
 /**
  * This class makes it possible to manually run tests.
- *
+ * <p>
  * Created by robin on 2016-02-25.
  */
 public class Main {
@@ -32,7 +32,7 @@ public class Main {
                 case (2):
                     runQuicksort(originalFloats, scan);
                     break;
-                case (3) :
+                case (3):
                     float[] floats = generateArray(100000000);
 
                     // Warm up the virtual machine
@@ -67,7 +67,7 @@ public class Main {
                     }
                     System.out.println("Done!");
                     break;
-                case (4) :
+                case (4):
                     floats = generateArray(100000000);
 
                     // Warm up the virtual machine
@@ -78,7 +78,6 @@ public class Main {
                         try {
                             Thread.sleep(200);
                         } catch (Exception ex) {
-
                         }
 
                         Arrays.parallelSort(floatCopy);
@@ -155,7 +154,7 @@ public class Main {
                     diff = stop - start;
                     System.out.println("Time: " + diff);
                     break;
-                case (3) :
+                case (3):
                     float[] floats = generateArray(100000000);
 
                     // Warm up the virtual machine
@@ -284,7 +283,7 @@ public class Main {
                     diff = stop - start;
                     System.out.println("Time: " + diff);
                     break;
-                case (3) :
+                case (3):
                     float[] floats = generateArray(100000000);
 
                     // Warm up the virtual machine
