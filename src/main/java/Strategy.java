@@ -4,7 +4,7 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
 /**
- * Created by Peonsson on 17/03/16.
+ * Created by Peonsson and roppe546 on 17/03/16.
  */
 public interface Strategy {
 
