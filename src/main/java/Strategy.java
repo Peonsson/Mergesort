@@ -46,9 +46,11 @@ class Framework implements Strategy {
                 System.gc();
             }
 
-            try {
-                Thread.sleep(sleepTime);
-            } catch (Exception ex) { }
+            if (doSleep) {
+                try {
+                    Thread.sleep(sleepTime);
+                } catch (Exception ex) { }
+            }
 
             if (strategy instanceof MergeSortParallel) {
                 task = new MergeSortParallel(floatCopy, 0, floatCopy.length);
