@@ -8,42 +8,53 @@ import java.util.concurrent.RecursiveAction;
  */
 public interface Strategy {
 
-    void sort();
+    void doTest();
+
 }
 
-class DoMergeSort implements Strategy {
+class Framework implements Strategy {
 
-    public void sort() {
+    private int numberOfTests = 20;
+    private int numberOfWarmups = 10;
+    private boolean doWarmup = true;
+    private boolean doSleep = true;
+    private boolean doGC = true;
+    private int sleepTime = 200;
 
-        float[] floats = generateArray(100000000);
-        ForkJoinPool pool = new ForkJoinPool();
-        RecursiveAction task;
+    private Strategy strategy;
+    private RecursiveAction task;
+    private float[] floats;
+    private ForkJoinPool pool;
 
-        // Warm up the virtual machine
-        System.out.println("Warming up...");
-        for (int i = 0; i < 10; i++) {
-            float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
-            System.gc();
-            try {
-                Thread.sleep(200);
-            } catch (Exception ex) {
-            }
+    public Framework(Strategy strategy) {
+        floats = generateArray(100000000);
+        pool = new ForkJoinPool();
+        this.strategy = strategy;
+    }
 
-            task = new MergeSortParallel(floatCopy, 0, floatCopy.length);
-            pool.invoke(task);
-        }
+    public void doTest() {
+
+        if (doWarmup)
+            doWarmup();
 
         // Run the actual test
         System.out.println("Running tests...");
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < numberOfTests; i++) {
             float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
-            System.gc();
-            try {
-                Thread.sleep(200);
-            } catch (Exception ex) {
+
+            if (doGC) {
+                System.gc();
             }
 
-            task = new MergeSortParallel(floatCopy, 0, floatCopy.length);
+            try {
+                Thread.sleep(sleepTime);
+            } catch (Exception ex) { }
+
+            if (strategy instanceof MergeSortParallel) {
+                task = new MergeSortParallel(floatCopy, 0, floatCopy.length);
+            } else if (strategy instanceof QuicksortParallel) {
+                task = new QuicksortParallel(floatCopy, 0, floatCopy.length - 1);
+            }
 
             long startTime = System.currentTimeMillis();
             pool.invoke(task);
@@ -52,6 +63,31 @@ class DoMergeSort implements Strategy {
             System.out.println(timeElapsed);
         }
         System.out.println("Done!");
+    }
+
+    private void doWarmup() {
+        System.out.println("Warming up...");
+        for (int i = 0; i < numberOfWarmups; i++) {
+            float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
+
+            if (doGC) {
+                System.gc();
+            }
+
+            if (doSleep) {
+                try {
+                    Thread.sleep(sleepTime);
+                } catch (Exception ex) { }
+            }
+
+            if (strategy instanceof MergeSortParallel) {
+                task = new MergeSortParallel(floatCopy, 0, floatCopy.length);
+            } else if (strategy instanceof QuicksortParallel) {
+                task = new QuicksortParallel(floatCopy, 0, floatCopy.length - 1);
+            }
+
+            pool.invoke(task);
+        }
     }
 
     private float[] generateArray(int size) {
@@ -64,59 +100,60 @@ class DoMergeSort implements Strategy {
 
         return floats;
     }
-}
 
-class DoQuicksort implements Strategy {
-
-    public void sort() {
-
-        float[] floats = generateArray(100000000);
-        ForkJoinPool pool = new ForkJoinPool();
-        RecursiveAction task;
-
-        // Warm up the virtual machine
-        System.out.println("Warming up...");
-        for (int i = 0; i < 10; i++) {
-            float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
-            System.gc();
-            try {
-                Thread.sleep(200);
-            } catch (Exception ex) {
-            }
-
-            task = new QuicksortParallel(floatCopy, 0, floatCopy.length - 1);
-            pool.invoke(task);
-        }
-
-        // Run the actual test
-        System.out.println("Running tests...");
-        for (int i = 0; i < 20; i++) {
-            float[] floatCopy = Arrays.copyOfRange(floats, 0, floats.length);
-            System.gc();
-            try {
-                Thread.sleep(200);
-            } catch (Exception ex) {
-            }
-
-            task = new QuicksortParallel(floatCopy, 0, floatCopy.length - 1);
-
-            long startTime = System.currentTimeMillis();
-            pool.invoke(task);
-            long timeElapsed = System.currentTimeMillis() - startTime;
-
-            System.out.println(timeElapsed);
-        }
-        System.out.println("Done!");
+    public int getNumberOfTests() {
+        return numberOfTests;
     }
 
-    private float[] generateArray(int size) {
-        Random r = new Random();
-        float[] floats = new float[size];
+    public void setNumberOfTests(int numberOfTests) {
+        this.numberOfTests = numberOfTests;
+    }
 
-        for (int i = 0; i < size; i++) {
-            floats[i] = r.nextFloat();
-        }
+    public int getNumberOfWarmups() {
+        return numberOfWarmups;
+    }
 
-        return floats;
+    public void setNumberOfWarmups(int numberOfWarmups) {
+        this.numberOfWarmups = numberOfWarmups;
+    }
+
+    public boolean isDoWarmup() {
+        return doWarmup;
+    }
+
+    public void setDoWarmup(boolean doWarmup) {
+        this.doWarmup = doWarmup;
+    }
+
+    public boolean isDoSleep() {
+        return doSleep;
+    }
+
+    public void setDoSleep(boolean doSleep) {
+        this.doSleep = doSleep;
+    }
+
+    public boolean isDoGC() {
+        return doGC;
+    }
+
+    public void setDoGC(boolean doGC) {
+        this.doGC = doGC;
+    }
+
+    public int getSleepTime() {
+        return sleepTime;
+    }
+
+    public void setSleepTime(int sleepTime) {
+        this.sleepTime = sleepTime;
+    }
+
+    public Strategy getStrategy() {
+        return strategy;
+    }
+
+    public void setStrategy(Strategy strategy) {
+        this.strategy = strategy;
     }
 }

@@ -6,12 +6,14 @@ import java.util.concurrent.RecursiveAction;
  *
  * Created by Peonsson & roppe546 on 2016-02-25.
  */
-public class QuicksortParallel extends RecursiveAction {
+public class QuicksortParallel extends RecursiveAction implements Strategy {
 
     private float[] list;
     private int first;
     private int last;
     private int threshold = 100000;
+
+    public QuicksortParallel() { }
 
     public QuicksortParallel(float[] list, int first, int last) {
         this.list = list;
@@ -64,5 +66,9 @@ public class QuicksortParallel extends RecursiveAction {
         list[down] = temp;
 
         return down;
+    }
+
+    public void doTest() {
+
     }
 }

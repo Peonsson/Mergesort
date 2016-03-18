@@ -6,12 +6,14 @@ import java.util.concurrent.RecursiveAction;
  *
  * Created by Peonsson & roppe546 on 2016-03-16.
  */
-public class MergeSortParallel extends RecursiveAction {
+public class MergeSortParallel extends RecursiveAction implements Strategy {
 
     private float[] list;
     private int first;
     private int last;
     private int threshold = 45000;
+
+    public MergeSortParallel() {}
 
     public MergeSortParallel(float[] list, int first, int last) {
         this.list = list;
@@ -59,5 +61,9 @@ public class MergeSortParallel extends RecursiveAction {
         }
 
         System.arraycopy(temp, 0, list, first, temp.length);
+    }
+
+    public void doTest() {
+
     }
 }
