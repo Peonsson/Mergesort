@@ -8,11 +8,22 @@ public class TestSortCompare {
         // Merge sort
 
         Framework framework = new Framework(new MergeSortParallel());
+
+        framework.setDoGC(true);
+        framework.setDoSleep(true);
+        framework.setNumberOfTests(15);
+        framework.setSleepTime(150);
+
         framework.doTest();
 
         // Quicksort
 
         framework.setStrategy(new QuicksortParallel());
+
+        framework.setDoGC(false);
+        framework.setDoSleep(false);
+        framework.setNumberOfTests(20);
+
         framework.doTest();
 
     }
